@@ -8,7 +8,7 @@ function App() {
   const API_URL = "http://localhost:4000/characters";
 
   const [heroes, setHeroes] = useState([]);
-  const [Loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
   const fetchHeroes = async () => {
@@ -27,19 +27,22 @@ function App() {
 
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <Navbar />
-      <div className="p-6 flex flex-wrap gap-6 justify-center">
-        {heroes.length > 0 ? (
-          heroes.map(hero => (
-            <HeroCard key={hero.id} hero={hero} />
-          ))
-        ) : (
-          <p className="text-gray-500">Loading heroes...</p>
-        )}
-      </div>
+  <div className="bg-gray-100 min-h-screen">
+    <Navbar />
+    <div className="p-6 flex flex-wrap gap-6 justify-center">
+      {loading ? (
+        <p className="text-gray-500">Loading heroes...</p>
+      ) : heroes.length > 0 ? (
+        heroes.map(hero => (
+          <HeroCard key={hero.id} hero={hero} />
+        ))
+      ) : (
+        <p className="text-gray-500">No heroes found</p>
+      )}
     </div>
-  );
+  </div>
+);
+
 }
 
 export default App
